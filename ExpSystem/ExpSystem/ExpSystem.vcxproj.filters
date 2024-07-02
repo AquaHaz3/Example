@@ -13,50 +13,65 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\core">
-      <UniqueIdentifier>{72158273-36d3-4beb-bc0f-1d3afceec81a}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\core">
+      <UniqueIdentifier>{d6e190b4-af3c-45a2-b728-e16b641daa57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="core\Ring.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="binary\Z2Field.cpp">
+    <ClCompile Include="Launcher.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="core\Field.cpp">
+    <ClCompile Include="core\ExpSystem.cpp">
+      <Filter>Исходные файлы\core</Filter>
+    </ClCompile>
+    <ClCompile Include="core\UserIO.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="core\design\ConsoleIO.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="core\OS.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="crypto\SHA256.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="core\CrackMe.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="core\FormatUtil.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\Ring.h">
+    <ClInclude Include="core\ExpSystem.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="core\MathSet.hpp">
+    <ClInclude Include="Launcher.h">
+      <Filter>Исходные файлы\core</Filter>
+    </ClInclude>
+    <ClInclude Include="core\UserIO.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="binary\CoreAPI.h">
+    <ClInclude Include="core\design\ConsoleIO.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="binary\Z2Field.h">
+    <ClInclude Include="core\OS.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="core\Field.h">
+    <ClInclude Include="crypto\SHA256.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="core\PolyRing.hpp">
+    <ClInclude Include="core\CrackMe.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="core\PolyField.hpp">
+    <ClInclude Include="core\CrackMeHelper.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="binary\CryptoLevel1.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="binary\BasicCrypto.h">
+    <ClInclude Include="core\FormatUtil.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

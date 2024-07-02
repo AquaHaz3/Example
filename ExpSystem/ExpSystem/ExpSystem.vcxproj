@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{37a28f8a-11a2-4e67-b8d5-8fd6d1df133d}</ProjectGuid>
-    <RootNamespace>AbstractCpp</RootNamespace>
+    <ProjectGuid>{aba7f73d-fa10-4a76-a317-2b072e1f0419}</ProjectGuid>
+    <RootNamespace>ExpSystem</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -90,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,6 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +121,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,21 +131,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="binary\Z2Field.cpp" />
-    <ClCompile Include="core\Field.cpp" />
+    <ClCompile Include="core\design\ConsoleIO.cpp" />
+    <ClCompile Include="core\ExpSystem.cpp" />
+    <ClCompile Include="core\CrackMe.cpp" />
+    <ClCompile Include="core\FormatUtil.cpp" />
+    <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="core\Ring.cpp" />
+    <ClCompile Include="core\UserIO.cpp" />
+    <ClCompile Include="core\OS.cpp" />
+    <ClCompile Include="crypto\SHA256.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="binary\BasicCrypto.h" />
-    <ClInclude Include="binary\CoreAPI.h" />
-    <ClInclude Include="binary\CryptoLevel1.h" />
-    <ClInclude Include="binary\Z2Field.h" />
-    <ClInclude Include="core\MathSet.hpp" />
-    <ClInclude Include="core\PolyField.hpp" />
-    <ClInclude Include="core\PolyRing.hpp" />
-    <ClInclude Include="core\Ring.h" />
-    <ClInclude Include="core\Field.h" />
+    <ClInclude Include="core\CrackMeHelper.h" />
+    <ClInclude Include="core\design\ConsoleIO.h" />
+    <ClInclude Include="core\ExpSystem.h" />
+    <ClInclude Include="core\CrackMe.h" />
+    <ClInclude Include="core\FormatUtil.h" />
+    <ClInclude Include="Launcher.h" />
+    <ClInclude Include="core\UserIO.h" />
+    <ClInclude Include="core\OS.hpp" />
+    <ClInclude Include="crypto\SHA256.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
