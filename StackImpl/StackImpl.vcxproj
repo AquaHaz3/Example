@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{aba7f73d-fa10-4a76-a317-2b072e1f0419}</ProjectGuid>
-    <RootNamespace>ExpSystem</RootNamespace>
+    <ProjectGuid>{3397da85-2690-448a-9291-95ae65feb44c}</ProjectGuid>
+    <RootNamespace>StackImpl</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -76,7 +76,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -91,7 +90,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +119,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -131,26 +128,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="core\design\ConsoleIO.cpp" />
-    <ClCompile Include="core\ExpSystem.cpp" />
-    <ClCompile Include="core\CrackMe.cpp" />
-    <ClCompile Include="core\FormatUtil.cpp" />
-    <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="core\UserIO.cpp" />
-    <ClCompile Include="core\OS.cpp" />
-    <ClCompile Include="crypto\SHA256.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core\CrackMeHelper.h" />
-    <ClInclude Include="core\design\ConsoleIO.h" />
-    <ClInclude Include="core\ExpSystem.h" />
-    <ClInclude Include="core\CrackMe.h" />
-    <ClInclude Include="core\FormatUtil.h" />
-    <ClInclude Include="Launcher.h" />
-    <ClInclude Include="core\UserIO.h" />
-    <ClInclude Include="core\OS.hpp" />
-    <ClInclude Include="crypto\SHA256.h" />
+    <ClInclude Include="ArrayStack.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
