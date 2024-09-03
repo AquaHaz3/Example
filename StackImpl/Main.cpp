@@ -32,3 +32,4 @@ bool check_sum(int a, int b, int sum)
 	if (a > 0 && sum > 0) return (sum - a == b);
 	return (sum > 0) && (sum - a == b);
 }
+  

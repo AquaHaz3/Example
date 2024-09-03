@@ -20,7 +20,7 @@ public:
 		if (count >= capacity) {
 			capacity = capacity * 2;
 			T* temp = new T[capacity];
-			std::copy(&data[0], &data[capacity], &temp[0]); // copy data from data[] -> temp[]
+			std::copy(&data[0], &data[count], &temp[0]); // copy data from data[] -> temp[]
 			delete[] data;
 			data = temp;
 		}
