@@ -47,7 +47,15 @@ public:
 		count--;
 	};
 
-	const T& const top()
+	T& top()
+	{
+		if (count == 0) {
+			throw std::exception("Empty stack");
+		}
+		return data[count - 1];
+	};
+
+	const T& top() const
 	{
 		if (count == 0) {
 			throw std::exception("Empty stack");
