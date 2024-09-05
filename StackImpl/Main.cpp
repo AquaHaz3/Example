@@ -8,13 +8,13 @@ bool check_sum(int a, int b, int sum);
 
 int main() 
 {
-	ArrayStack<Wrap> s = ArrayStack<Wrap>(2);
+	ArrayStack<Wrapper> s = ArrayStack<Wrapper>(2);
 
-	s.push(Wrap(1));
-	s.push(Wrap(2));
-	s.push(Wrap(3)); // expand capacity
-	s.push(Wrap(4));
-	s.push(Wrap(5));
+	s.push(Wrapper(1));
+	s.push(Wrapper(2));
+	s.push(Wrapper(3)); // expand capacity
+	s.push(Wrapper(4));
+	s.push(Wrapper(5));
 
 	while(!s.empty()) 
 	{
