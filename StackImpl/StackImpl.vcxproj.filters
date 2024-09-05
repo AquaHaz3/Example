@@ -23,7 +23,7 @@
     <ClInclude Include="ArrayStack.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Wrap.hpp">
+    <ClInclude Include="Wrapper.hpp">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>

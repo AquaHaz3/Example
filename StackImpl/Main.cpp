@@ -2,7 +2,7 @@
 #include <string>
 
 #include "ArrayStack.hpp"
-#include "Wrap.hpp"
+#include "Wrapper.hpp"
 
 bool check_sum(int a, int b, int sum);
 
