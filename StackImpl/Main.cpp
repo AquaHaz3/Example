@@ -7,7 +7,7 @@
 bool check_sum(int a, int b, int sum);
 bool check_sum_2(int a, int b, int sum);
 
-int tests[] = {0,1,-1,INT_MAX, INT_MIN, 10, 1000000000, 2000000000};
+int tests[] = {0,1,-1,INT_MAX, INT_MIN, -2000000000, 1000000000, 2000000000};
 
 int main() 
 {
