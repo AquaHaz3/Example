@@ -2,34 +2,35 @@
 #include <string>
 
 #include "ArrayStack.hpp"
-#include <stack>
+#include "Wrap.hpp"
 
 bool check_sum(int a, int b, int sum);
 
 int main() 
 {
-	ArrayStack<int> s = ArrayStack<int>(2);
+	ArrayStack<Wrap> s = ArrayStack<Wrap>(2);
 
-	s.push(1);
-	s.push(2);
-	s.push(3); // expand capacity
-	s.push(4);
-	s.push(5);
+	s.push(Wrap(1));
+	s.push(Wrap(2));
+	s.push(Wrap(3)); // expand capacity
+	s.push(Wrap(4));
+	s.push(Wrap(5));
 
 	while(!s.empty()) 
 	{
-		std::cout << s.top() << std::endl;
+		std::cout << s.top().uuid << std::endl;
 		s.pop();
 	};
+
 }
 
-/*
-	Not completed yet! just beta test (maybe don't work)
-*/
+#include <limits.h>
+
 bool check_sum(int a, int b, int sum)
 {
-	if (b > 0 && sum > 0) return (sum - b == a);
-	if (a > 0 && sum > 0) return (sum - a == b);
-	return (sum > 0) && (sum - a == b);
+	if (((b > 0) && (a > (INT_MAX - b))) ||
+		((b < 0) && (a < (INT_MIN - b)))) {
+		return false;
+	}
+	return (a + b == sum);
 }
-  
