@@ -62,7 +62,7 @@ inline void ArrayStack<T>::push(T&& value)
 	if (count >= capacity) {
 		expand_capacity();
 	}
-	this->data[count] = std::move(value);
+	this->data[count] = value;
 	count++;
 }
 
@@ -96,7 +96,7 @@ inline void ArrayStack<T>::expand_capacity()
 {
 	capacity = capacity * 2;
 	T* temp = new T[capacity];
-	std::copy(&data[0], &data[count], &temp[0]);
+	std::move(&data[0], &data[count], &temp[0]);
 	delete[] data;
 	data = temp;
 }

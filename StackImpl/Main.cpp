@@ -5,6 +5,9 @@
 #include "Wrapper.hpp"
 
 bool check_sum(int a, int b, int sum);
+bool check_sum_2(int a, int b, int sum);
+
+int tests[] = {0,1,-1,INT_MAX, INT_MIN, 10, 1000000000, 2000000000};
 
 int main() 
 {
@@ -27,6 +30,16 @@ int main()
 #include <limits.h>
 
 bool check_sum(int a, int b, int sum)
+{
+	if (a > 0 && b > 0) 
+		return (sum >= 0) && (sum - b == a);
+	if (a < 0 && b < 0) 
+		return (sum < 0) && (sum - b == a);
+
+	return (a + b == sum);
+}
+
+bool check_sum_2(int a, int b, int sum)
 {
 	if (((b > 0) && (a > (INT_MAX - b))) ||
 		((b < 0) && (a < (INT_MIN - b)))) {
