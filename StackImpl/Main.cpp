@@ -1,17 +1,26 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
-#include "ArrayStack.hpp"
+#include "CombinedStack.h"
 #include "Wrapper.hpp"
 
-bool check_sum(int a, int b, int sum);
-bool check_sum_2(int a, int b, int sum);
+int tests[] = {0,1,-1,INT_MAX, INT_MIN, -2000000000, 1000000000, 2000000000, -1000000000, -1000, 1000 };
 
-int tests[] = {0,1,-1,INT_MAX, INT_MIN, -2000000000, 1000000000, 2000000000};
+bool check_sum_is_zero(const std::vector<int>& arr);
 
 int main() 
 {
-	ArrayStack<Wrapper> s = ArrayStack<Wrapper>(2);
+
+	//int a = INT_MIN;
+	//int b = -8;
+	//int c = a + b;
+	//printf("%d", c);
+
+	return 0;
+
+	stack_combined<Wrapper> s 
+		= stack_combined<Wrapper>(2, chunk_size_policy::EXP);
 
 	s.push(Wrapper(1));
 	s.push(Wrapper(2));
@@ -19,31 +28,36 @@ int main()
 	s.push(Wrapper(4));
 	s.push(Wrapper(5));
 
-	while(!s.empty()) 
+	while(s.size() > 0) 
 	{
 		std::cout << s.top().uuid << std::endl;
 		s.pop();
 	};
 
+	return 0;
+
 }
 
-#include <limits.h>
-
-bool check_sum(int a, int b, int sum)
+/*
+@return
+1 - positive overflow, -1 negative overflow, 0 - no overflow
+*/
+int overflow_dir(int a, int b)
 {
-	if (a > 0 && b > 0) 
-		return (sum >= 0) && (sum - b == a);
-	if (a < 0 && b < 0) 
-		return (sum < 0) && (sum - b == a);
-
-	return (a + b == sum);
+	int sum = a + b;
+	if (a > 0 && b > 0 && sum < a) return 1;
+	if (a < 0 && b < 0 && sum > a) return -1;
+	return 0;
 }
 
-bool check_sum_2(int a, int b, int sum)
+bool check_sum_is_zero(const std::vector<int>& arr) 
 {
-	if (((b > 0) && (a > (INT_MAX - b))) ||
-		((b < 0) && (a < (INT_MIN - b)))) {
-		return false;
+	int sum = 0;
+	int cycles = 0;
+	for (int num : arr) {
+		cycles = cycles + overflow_dir(num, sum);
+		sum = sum + num;
 	}
-	return (a + b == sum);
-}
+	sum |= cycles;
+	return (sum == 0);
+} 

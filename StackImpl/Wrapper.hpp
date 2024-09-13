@@ -14,7 +14,7 @@ public:
 	Wrapper(int t) { uuid = t; };
 
 	~Wrapper() {
-		if (_TRACE_COPY_AND_MOVE) printf("~Wrap\n");
+		if (_TRACE_COPY_AND_MOVE) printf("~Wrap %p\n", this);
 	};
 
 	Wrapper(Wrapper&& c) noexcept { 

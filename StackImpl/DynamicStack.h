@@ -14,7 +14,7 @@ class stack_array
 
 public:
 
-	stack_array(int capacity = 5000) 
+	stack_array(int capacity = 5000)
 	{
 		this->capacity = capacity;
 		data = new T[capacity];
@@ -24,7 +24,7 @@ public:
 	void push(T&& value);
 	T& top();
 	const T& top() const;
-	void pop() noexcept;
+	void pop();
 
 	bool empty() noexcept {
 		return (count == 0);
@@ -34,12 +34,16 @@ public:
 		return count;
 	}
 
-	~stack_array() 
+	~stack_array()
 	{
 		if (data != nullptr) {
 			delete[] data;
 		}
 	}
+
+private:
+
+	void expand_capacity();
 
 };
 
@@ -47,7 +51,7 @@ template<typename T>
 inline void stack_array<T>::push(const T& value)
 {
 	if (count >= capacity) {
-		throw std::overflow_error("Stack overflow");
+		expand_capacity();
 	}
 	this->data[count] = value;
 	count++;
@@ -57,14 +61,14 @@ template<typename T>
 inline void stack_array<T>::push(T&& value)
 {
 	if (count >= capacity) {
-		throw std::overflow_error("Stack overflow");
+		expand_capacity();
 	}
 	this->data[count] = std::move(value);
 	count++;
 }
 
 template<typename T>
-inline void stack_array<T>::pop() noexcept
+inline void stack_array<T>::pop()
 {
 	if (count == 0) {
 		throw std::underflow_error("Empty stack");
@@ -89,3 +93,13 @@ inline const T& stack_array<T>::top() const
 	}
 	return data[count - 1];
 };
+
+template<typename T>
+inline void stack_array<T>::expand_capacity()
+{
+	capacity = capacity * 2;
+	T* temp = new T[capacity];
+	std::move(&data[0], &data[count], &temp[0]);
+	delete[] data;
+	data = temp;
+}
