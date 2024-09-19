@@ -35,7 +35,7 @@ public:
 		return *this;
 	};
 
-	Wrapper& operator==(Wrapper&& t) noexcept { 
+	Wrapper& operator=(Wrapper&& t) noexcept { 
 		if (_TRACE_COPY_AND_MOVE) printf("=Wrap&&\n");
 		uuid = t.uuid;
 		t.uuid = 0;

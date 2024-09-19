@@ -134,6 +134,8 @@
     <ClInclude Include="ArrayStack.hpp" />
     <ClInclude Include="CombinedStack.h" />
     <ClInclude Include="DynamicStack.h" />
+    <ClInclude Include="ListStack.h" />
+    <ClInclude Include="Sorts.h" />
     <ClInclude Include="Test.cpp" />
     <ClInclude Include="Wrapper.hpp" />
   </ItemGroup>

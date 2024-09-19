@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <exception>
+#include <cmath>
 #include <stdexcept>
 
 enum class chunk_size_policy
@@ -37,9 +38,9 @@ class stack_combined
 			if (data) delete[] data;
 		}
 
-	} *head = 0;
+	} *head = nullptr;
 
-	chunk_node* current_chunk = 0;
+	chunk_node* current_chunk = nullptr;
 
 public:
 
@@ -66,6 +67,96 @@ public:
 
 	~stack_combined()
 	{
+		clear();
+	}
+
+	stack_combined(stack_combined&& c) noexcept
+	{
+		count = c.count;
+		policy = c.policy;
+		head = c.head;
+		current_chunk = c.current_chunk;
+		c.head = nullptr;
+		c.current_chunk = nullptr;
+	};
+
+	stack_combined(const stack_combined& c) noexcept
+	{
+		count = c.count;
+		policy = c.policy;
+
+		if (c.head == 0) 
+			return;
+	
+		auto node = new chunk_node(c.head->capacity);
+		auto cnode = c.head;
+		head = node;
+		head->count = c.head->count;
+		if (c.head == c.current_chunk) current_chunk = head;
+		std::copy(&c.head->data[0], &c.head->data[c.head->capacity], &head->data[0]);
+		cnode = cnode->next;
+
+		
+		while (cnode != nullptr) {
+			node->next = new chunk_node(cnode->capacity);
+			node->next->count = cnode->count;
+			if (cnode->capacity > 0) {
+				std::copy(&cnode->data[0], &cnode->data[c.head->capacity], &node->next->data[0]);
+			}
+			if (cnode == c.current_chunk) {
+				current_chunk = node->next;
+			}
+			cnode = cnode->next;
+			node = node->next;
+		}
+	};
+
+	stack_combined& operator=(const stack_combined& c) noexcept 
+	{
+		clear();
+		count = c.count;
+		policy = c.policy;
+
+		if (c.head == 0) return;
+
+		auto node = new chunk_node(c.head->capacity);
+		auto cnode = c.head;
+		head = node;
+		head->count = c.head->count;
+		if (c.head == c.current_chunk) current_chunk = head;
+		std::copy(&c.head->data[0], &c.head->data[c.head->capacity], &head->data[0]);
+		cnode = cnode->next;
+
+		while (cnode != nullptr) {
+			node->next = new chunk_node(cnode->capacity);
+			node->next->count = cnode->count;
+			if (cnode->capacity > 0) {
+				std::copy(&cnode->data[0], &cnode->data[c.head->capacity], &node->next->data[0]);
+			}
+			if (cnode == c.current_chunk) {
+				current_chunk = node->next;
+			}
+			cnode = cnode->next;
+			node = node->next;
+		}
+		return *this;
+	};
+
+	stack_combined& operator=(stack_combined&& c) noexcept 
+	{
+		clear();
+		count = c.count;
+		policy = c.policy;
+		head = c.head;
+		current_chunk = c.current_chunk;
+		c.head = nullptr;
+		c.current_chunk = nullptr;
+		return *this;
+	};
+
+private:
+
+	void clear() {
 		chunk_node* node = head;
 		while (node != nullptr) {
 			head = head->next;
@@ -73,9 +164,6 @@ public:
 			node = head;
 		}
 	}
-
-private:
-
 	void expand_capacity();
 	size_t get_next_capacity(size_t capacity);
 
@@ -84,7 +172,7 @@ private:
 template<typename T>
 inline void stack_combined<T>::push(const T& value)
 {
-	if (current_chunk == 0) {
+	if (current_chunk) {
 		current_chunk = new chunk_node(8);
 		head = current_chunk;
 	}
@@ -150,21 +238,22 @@ inline const T& stack_combined<T>::top() const
 	if (count == 0 || current_chunk == 0) {
 		throw std::length_error("Empty stack");
 	}
+	if (current_chunk->count == 0) {
+		return current_chunk->next->data[current_chunk->next->count - 1];
+	}
 	return current_chunk->data[current_chunk->count - 1];
 };
 
 template<typename T>
 inline size_t stack_combined<T>::get_next_capacity(size_t capacity)
 {
-	static size_t i = 1;
-	i++;
 	using enum chunk_size_policy;
 	switch (policy)
 	{
 	case CONST: return capacity;
 	case LINEAR: return capacity + 16;
 	case EXP: return capacity * 2;
-	case QUAD: return i*i;
+	case QUAD: return (int)(std::pow((std::sqrt(capacity)+1),2))
 	default:
 		return capacity;
 	}

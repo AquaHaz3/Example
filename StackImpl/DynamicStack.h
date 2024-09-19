@@ -5,7 +5,7 @@
 
 template <typename T>
 
-class stack_array
+class stack_darray
 {
 
 	T* data = nullptr;
@@ -14,7 +14,7 @@ class stack_array
 
 public:
 
-	stack_array(int capacity = 5000)
+	stack_darray(int capacity = 5000)
 	{
 		this->capacity = capacity;
 		data = new T[capacity];
@@ -34,12 +34,47 @@ public:
 		return count;
 	}
 
-	~stack_array()
+	~stack_darray()
 	{
 		if (data != nullptr) {
 			delete[] data;
 		}
 	}
+
+	stack_darray(stack_darray&& c) noexcept
+	{
+		data = c.data;
+		count = c.count;
+		capacity = c.capacity;
+		c.data = nullptr;
+	};
+
+	stack_darray(const stack_darray& c) noexcept
+	{
+		data = new T[c.capacity];
+		std::copy(&c.data[0], &c.data[c.capacity], &data[0]);
+		count = c.count;
+		capacity = c.capacity;
+	};
+
+	stack_darray& operator=(const stack_darray& c) noexcept {
+		if (data != nullptr) delete[] data;
+		data = new T[c.capacity];
+		std::copy(&c.data[0], &c.data[c.capacity], &data[0]);
+		count = c.count;
+		capacity = c.capacity;
+		return *this;
+	};
+
+	stack_darray& operator=(stack_darray&& c) noexcept 
+	{
+		if (data != nullptr) delete[] data;
+		data = c.data;
+		count = c.count;
+		capacity = c.capacity;
+		c.data = nullptr;
+		return *this;
+	};
 
 private:
 
@@ -48,7 +83,7 @@ private:
 };
 
 template<typename T>
-inline void stack_array<T>::push(const T& value)
+inline void stack_darray<T>::push(const T& value)
 {
 	if (count >= capacity) {
 		expand_capacity();
@@ -58,7 +93,7 @@ inline void stack_array<T>::push(const T& value)
 }
 
 template<typename T>
-inline void stack_array<T>::push(T&& value)
+inline void stack_darray<T>::push(T&& value)
 {
 	if (count >= capacity) {
 		expand_capacity();
@@ -68,7 +103,7 @@ inline void stack_array<T>::push(T&& value)
 }
 
 template<typename T>
-inline void stack_array<T>::pop()
+inline void stack_darray<T>::pop()
 {
 	if (count == 0) {
 		throw std::underflow_error("Empty stack");
@@ -77,7 +112,7 @@ inline void stack_array<T>::pop()
 }
 
 template<typename T>
-inline T& stack_array<T>::top()
+inline T& stack_darray<T>::top()
 {
 	if (count == 0) {
 		throw std::length_error("Empty stack");
@@ -86,7 +121,7 @@ inline T& stack_array<T>::top()
 }
 
 template<typename T>
-inline const T& stack_array<T>::top() const
+inline const T& stack_darray<T>::top() const
 {
 	if (count == 0) {
 		throw std::length_error("Empty stack");
@@ -95,7 +130,7 @@ inline const T& stack_array<T>::top() const
 };
 
 template<typename T>
-inline void stack_array<T>::expand_capacity()
+inline void stack_darray<T>::expand_capacity()
 {
 	capacity = capacity * 2;
 	T* temp = new T[capacity];

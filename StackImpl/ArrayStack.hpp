@@ -41,6 +41,40 @@ public:
 		}
 	}
 
+	stack_array(stack_array&& c) noexcept
+	{
+		data = c.data;
+		count = c.count;
+		capacity = c.capacity;
+		c.data = nullptr;
+	};
+
+	stack_array(const stack_array& c) noexcept
+	{
+		data = new T[c.capacity];
+		std::copy(&c.data[0], &c.data[c.capacity], &data[0]);
+		count = c.count;
+		capacity = c.capacity;
+	};
+
+	stack_array& operator=(const stack_array& c) noexcept {
+		if (data) delete[] data;
+		data = new T[c.capacity];
+		std::copy(&c.data[0], &c.data[c.capacity], &data[0]);
+		count = c.count;
+		capacity = c.capacity;
+		return *this;
+	};
+
+	stack_array& operator=(stack_array&& c) noexcept {
+		if (data) delete[] data;
+		data = c.data;
+		count = c.count;
+		capacity = c.capacity;
+		c.data = nullptr;
+		return *this;
+	};
+
 };
 
 template<typename T>
