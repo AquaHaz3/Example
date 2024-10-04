@@ -1,47 +1,85 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <random>
+#include <stack>
+#include <cmath>
 
 #include "CombinedStack.h"
+#include "DynamicStack.h"
+#include "ArrayStack.hpp"
+#include "ListStack.h"
 #include "Wrapper.hpp"
 #include "Sorts.h"
+#include "tasks/Expressions.h"
 
-int tests[] = {0,1,-1,INT_MAX, INT_MIN, -2000000000, 1000000000, 2000000000, -1000000000, -1000, 1000 };
+bool check_product(std::vector<int>& arr1, std::vector<int>& arr2);
 
-bool check_sum_is_zero(const std::vector<int>& arr);
-
-int main() 
+int main()
 {
 
-	
-	return 0;
+	std::string expr = "(()()(())[]{(<>)})";
+	Expressions util = Expressions();
+	auto it = util.check_bracket_expr(expr.begin(), expr.end());
+	if (it != expr.end()) {
+		printf("%c", it[0]);
+	}
+
+	test_sort_random_order();
+	test_sort_descend_order();
 
 }
 
-bool check_sum_is_zero(const std::vector<int>& arr) 
+uint32_t multiplicative_inverse(uint32_t a)
 {
-	stack_array positive = stack_array<int>(arr.size());
-	stack_array negative = stack_array<int>(arr.size());
+	uint32_t x0 = (3 * a) ^ 2;
+	uint32_t y = 1 - a * x0;
+	uint32_t x1 = x0 * (1 + y);
+	y *= y;
+	uint32_t x2 = x1 * (1 + y);
+	y *= y;
+	uint32_t x3 = x2 * (1 + y);
+	return x3;
+}
+bool check_product(std::vector<int>& arr1, std::vector<int>& arr2) 
+{
 
-	for (int num : arr) {
-		if (num >= 0) positive.push(num);
-		else negative.push(num);
+	bool is_zero_found = false;
+	int sign1 = 1;
+	int sign2 = 1;
+	int two1 = 0;
+	int two2 = 0;
+
+	for (int i = 0; i < arr1.size(); i++) {
+		if (arr1[i] == 0) {
+			is_zero_found = true;
+			break;
+		}
+		if(arr1[i] < 0) {
+			sign1 *= -1;
+		}
+		while((arr1[i] & 1) == 0) {
+			two1++;
+			arr1[i] = arr1[i] >> 1;
+		}
 	}
 
-	int sum = 0;
-
-	while (positive.size() > 0 || negative.size() > 0) {
-		if (sum < 0) {
-			if (positive.size() == 0) return false;
-			sum += positive.top();
-			positive.pop();
+	for (int i = 0; i < arr2.size(); i++) {
+		if (arr2[i] == 0) {
+			return is_zero_found;
 		}
-		else {
-			if (negative.empty()) return (sum == 0);
-			sum += negative.top();
-			negative.pop();
+		if (arr2[i] < 0) {
+			sign2 *= -1;
+		}
+		while ((arr2[i] & 1) == 0) {
+			two2++;
+			arr2[i] = arr2[i] >> 1;
 		}
 	}
 
-	return false;
-} 
+	if (two1 != two2) return false;
+	if (sign1 != sign2) return false;
+	if (is_zero_found) return false;
+	
+	
+}

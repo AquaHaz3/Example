@@ -14,7 +14,6 @@ enum class chunk_size_policy
 };
 
 template <typename T>
-
 class stack_combined
 {
 
@@ -172,7 +171,7 @@ private:
 template<typename T>
 inline void stack_combined<T>::push(const T& value)
 {
-	if (current_chunk) {
+	if (current_chunk == nullptr) {
 		current_chunk = new chunk_node(8);
 		head = current_chunk;
 	}
@@ -187,7 +186,7 @@ inline void stack_combined<T>::push(const T& value)
 template<typename T>
 inline void stack_combined<T>::push(T&& value)
 {
-	if (current_chunk == 0) {
+	if (current_chunk == nullptr) {
 		current_chunk = new chunk_node(8);
 		head = current_chunk;
 	}
@@ -227,6 +226,9 @@ inline T& stack_combined<T>::top()
 		throw std::length_error("Empty stack");
 	}
 	if (current_chunk->count == 0) {
+		if (current_chunk->next == nullptr) {
+			throw std::length_error("Empty stack");
+		}
 		return current_chunk->next->data[current_chunk->next->count - 1];
 	}
 	return current_chunk->data[current_chunk->count - 1];
@@ -239,6 +241,9 @@ inline const T& stack_combined<T>::top() const
 		throw std::length_error("Empty stack");
 	}
 	if (current_chunk->count == 0) {
+		if (current_chunk->next == nullptr) {
+			throw std::length_error("Empty stack");
+		}
 		return current_chunk->next->data[current_chunk->next->count - 1];
 	}
 	return current_chunk->data[current_chunk->count - 1];
@@ -253,7 +258,7 @@ inline size_t stack_combined<T>::get_next_capacity(size_t capacity)
 	case CONST: return capacity;
 	case LINEAR: return capacity + 16;
 	case EXP: return capacity * 2;
-	case QUAD: return (int)(std::pow((std::sqrt(capacity)+1),2))
+	case QUAD: return (int)(std::pow((std::sqrt(capacity) + 1), 2));
 	default:
 		return capacity;
 	}

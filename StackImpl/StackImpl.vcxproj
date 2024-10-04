@@ -119,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,12 +129,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="tasks\Expressions.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.hpp" />
     <ClInclude Include="CombinedStack.h" />
     <ClInclude Include="DynamicStack.h" />
+    <ClInclude Include="tasks\Expressions.h" />
     <ClInclude Include="ListStack.h" />
     <ClInclude Include="Sorts.h" />
     <ClInclude Include="Test.cpp" />
